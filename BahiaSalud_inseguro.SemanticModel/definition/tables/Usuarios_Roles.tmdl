@@ -105,7 +105,7 @@ table Usuarios_Roles
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Usuarios_Roles.csv"),[Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\josue.rivera\Documents\PBIPBahiaSalud\Usuarios_Roles.csv"),[Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Usuario_ID", type text}, {"Nombre", type text}, {"Correo", type text}, {"Cargo", type text}, {"Area", type text}, {"Sede_ID", Int64.Type}, {"Rol_Area_Trabajo", type text}, {"Estado", type text}, {"Fecha_Retiro", type date}, {"Acceso_PowerBI", type text}})
 				in

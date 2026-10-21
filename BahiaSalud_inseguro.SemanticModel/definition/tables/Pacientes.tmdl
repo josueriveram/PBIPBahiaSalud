@@ -128,7 +128,7 @@ table Pacientes
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Pacientes.csv"),[Delimiter=";", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\josue.rivera\Documents\PBIPBahiaSalud\Pacientes.csv"),[Delimiter=";", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Paciente_ID", type text}, {"Tipo_Doc", type text}, {"Cedula", type text}, {"Nombres", type text}, {"Apellidos", type text}, {"Fecha_Nacimiento", type date}, {"Sexo", type text}, {"Telefono", type text}, {"Correo", type text}, {"Municipio", type text}, {"EPS", type text}})
 				in

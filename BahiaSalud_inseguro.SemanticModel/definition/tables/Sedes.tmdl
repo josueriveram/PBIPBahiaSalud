@@ -44,7 +44,7 @@ table Sedes
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Sedes.csv"),[Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\josue.rivera\Documents\PBIPBahiaSalud\Sedes.csv"),[Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Sede_ID", Int64.Type}, {"Sede", type text}, {"Ciudad", type text}, {"Camas", Int64.Type}})
 				in

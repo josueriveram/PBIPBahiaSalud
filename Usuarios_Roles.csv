@@ -1,0 +1,26 @@
+﻿Usuario_ID;Nombre;Correo;Cargo;Area;Sede_ID;Rol_Area_Trabajo;Estado;Fecha_Retiro;Acceso_PowerBI
+U001;Andrés Álvarez;andres.alvarez@bahiasalud.example;Gerente general;Gerencia;3;Administrador;Activo;;Sí
+U002;Blanca Perdomo;blanca.perdomo@bahiasalud.example;Director médico;Asistencial;2;Administrador;Activo;;Sí
+U003;José Giraldo;jose.giraldo@bahiasalud.example;Coordinador de facturación;Financiera;2;Administrador;Activo;;Sí
+U004;Carolina Vega;carolina.vega@bahiasalud.example;Analista de datos;TIC;2;Administrador;Activo;;Sí
+U005;Rocío Delgado;rocio.delgado@bahiasalud.example;Analista de datos;TIC;1;Administrador;Activo;;Sí
+U006;Elisa Aguirre;elisa.aguirre@bahiasalud.example;Auxiliar de facturación;Financiera;1;Administrador;Activo;;Sí
+U007;José Gaitán;jose.gaitan@bahiasalud.example;Jefe de enfermería;Asistencial;1;Administrador;Activo;;Sí
+U008;Henry Loaiza;henry.loaiza@bahiasalud.example;Coordinador de calidad;Calidad;3;Administrador;Activo;;Sí
+U009;Felipe Bastidas;felipe.bastidas@bahiasalud.example;Auditor médico;Calidad;1;Administrador;Activo;;Sí
+U010;Alejandra Torres;alejandra.torres@bahiasalud.example;Auxiliar administrativo;Administrativa;3;Administrador;Retirado;2025-10-07;Sí
+U011;Carlos Caro;carlos.caro@bahiasalud.example;Gerente general;Gerencia;2;Administrador;Retirado;2026-01-31;Sí
+U012;Flor Suárez;flor.suarez@bahiasalud.example;Director médico;Asistencial;3;Administrador;Activo;;Sí
+U013;Esperanza Martínez;esperanza.martinez@bahiasalud.example;Coordinador de facturación;Financiera;3;Administrador;Activo;;Sí
+U014;Gloria Correa;gloria.correa@bahiasalud.example;Analista de datos;TIC;2;Administrador;Activo;;Sí
+U015;Myriam Álvarez;myriam.alvarez@bahiasalud.example;Analista de datos;TIC;3;Administrador;Activo;;Sí
+U016;Fernando Moreno;fernando.moreno@bahiasalud.example;Auxiliar de facturación;Financiera;1;Administrador;Retirado;2026-03-28;Sí
+U017;Alonso Vargas;alonso.vargas@bahiasalud.example;Jefe de enfermería;Asistencial;3;Administrador;Activo;;Sí
+U018;Jhonatan Pérez;jhonatan.perez@bahiasalud.example;Coordinador de calidad;Calidad;1;Administrador;Activo;;Sí
+U019;Rocío Hoyos;rocio.hoyos@bahiasalud.example;Auditor médico;Calidad;1;Administrador;Activo;;Sí
+U020;Héctor Torres;hector.torres@bahiasalud.example;Auxiliar administrativo;Administrativa;1;Administrador;Retirado;2026-04-02;Sí
+U021;Katherine Camacho;katherine.camacho@bahiasalud.example;Gerente general;Gerencia;2;Administrador;Activo;;Sí
+U022;Astrid Acevedo;astrid.acevedo@bahiasalud.example;Director médico;Asistencial;1;Administrador;Activo;;Sí
+U023;Rafael Rodríguez;rafael.rodriguez@bahiasalud.example;Coordinador de facturación;Financiera;1;Administrador;Activo;;Sí
+U024;María Beltrán;maria.beltran@bahiasalud.example;Analista de datos;TIC;1;Administrador;Activo;;Sí
+U025;Ruth Díaz;ruth.diaz@bahiasalud.example;Analista de datos;TIC;1;Administrador;Activo;;Sí

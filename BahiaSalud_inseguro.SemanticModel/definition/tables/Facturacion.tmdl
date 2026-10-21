@@ -69,7 +69,7 @@ table Facturacion
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Facturacion.csv"),[Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\josue.rivera\Documents\PBIPBahiaSalud\Facturacion.csv"),[Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Factura_ID", type text}, {"Atencion_ID", type text}, {"EPS_Pagadora", type text}, {"Valor_COP", Int64.Type}, {"Fecha_Factura", type date}, {"Estado", type text}})
 				in

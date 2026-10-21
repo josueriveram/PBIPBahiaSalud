@@ -111,7 +111,7 @@ table Atenciones
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Atenciones.csv"),[Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\josue.rivera\Documents\PBIPBahiaSalud\Atenciones.csv"),[Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Atencion_ID", type text}, {"Paciente_ID", type text}, {"Sede_ID", Int64.Type}, {"Fecha_Ingreso", type date}, {"Fecha_Egreso", type date}, {"Servicio", type text}, {"Diagnostico_CIE10", type text}, {"Descripcion_Dx", type text}, {"Medico", type text}})
 				in
