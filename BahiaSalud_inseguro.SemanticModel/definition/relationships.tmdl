@@ -1,0 +1,42 @@
+relationship e069e7c4-ca42-4ff1-a7d3-989b9ba4eeb6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Pacientes.Fecha_Nacimiento
+	toColumn: LocalDateTable_d9848719-4019-4496-951e-d39981f32a5f.Date
+
+relationship 4c5bba3b-5c3f-473c-9d88-40c251ad63fa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atenciones.Fecha_Ingreso
+	toColumn: LocalDateTable_83bcf84d-a339-4132-a654-579e996360a2.Date
+
+relationship ee325987-9d2d-44e3-8ae4-7763e78307b9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atenciones.Fecha_Egreso
+	toColumn: LocalDateTable_b003c781-ec1e-42ad-838a-96d42f50b014.Date
+
+relationship AutoDetected_011f315d-536e-4228-9766-9a7b3dec1388
+	fromColumn: Atenciones.Paciente_ID
+	toColumn: Pacientes.Paciente_ID
+
+relationship 4e7c8349-62da-4383-bc66-a3c97218bf84
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Facturacion.Fecha_Factura
+	toColumn: LocalDateTable_fc2014ce-5b44-49a7-9bf4-bbb910fa7612.Date
+
+relationship AutoDetected_4e1f9a3f-f426-49b8-8cb8-f07594862983
+	fromColumn: Atenciones.Sede_ID
+	toColumn: Sedes.Sede_ID
+
+relationship 2c463258-0dc7-4427-974a-f383f6a7f1c2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Usuarios_Roles.Fecha_Retiro
+	toColumn: LocalDateTable_1958f4e4-56ac-4987-9e5c-373ea99da48c.Date
+
+relationship AutoDetected_9413a172-d131-4dda-9840-e40ea6d40523
+	fromColumn: Usuarios_Roles.Sede_ID
+	toColumn: Sedes.Sede_ID
+
+relationship f23b92ae-58f2-dcdf-32e2-53516c64ee2d
+	crossFilteringBehavior: bothDirections
+	fromColumn: Facturacion.Atencion_ID
+	toColumn: Atenciones.Atencion_ID
+

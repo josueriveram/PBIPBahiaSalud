@@ -1,0 +1,54 @@
+/// Catálogo de sedes de la institución. Incluye el identificador, nombre, ciudad y número de camas; Sede_ID se usa para relacionar la sede con las atenciones y los usuarios.
+table Sedes
+	lineageTag: 79f75e75-e831-4208-abf4-6404fc216bcd
+
+	/// Identificador de la sede. Se utiliza para vincular sedes con atenciones y usuarios.
+	column Sede_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: e2dc3e7c-ce98-4bb7-aa1c-3650cd0c09a1
+		summarizeBy: none
+		sourceColumn: Sede_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nombre o denominación de la sede de la institución.
+	column Sede
+		dataType: string
+		lineageTag: c5a80525-f959-49f9-9053-d9493237e84a
+		summarizeBy: none
+		sourceColumn: Sede
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Ciudad donde está ubicada la sede.
+	column Ciudad
+		dataType: string
+		lineageTag: bdba24af-4a03-4e38-93f9-d1e809959a12
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cantidad de camas registradas para la sede. La columna está configurada para sumarse.
+	column Camas
+		dataType: int64
+		formatString: 0
+		lineageTag: 6eadde0c-9b70-4692-9178-13c1803ef2d8
+		summarizeBy: sum
+		sourceColumn: Camas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sedes = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Sedes.csv"),[Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Sede_ID", Int64.Type}, {"Sede", type text}, {"Ciudad", type text}, {"Camas", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "6868c4dee4a069e8ac34",
+  "position": {
+    "x": 920,
+    "y": 205,
+    "z": 5001,
+    "height": 275,
+    "width": 430,
+    "tabOrder": 5001
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Atenciones"
+                    }
+                  },
+                  "Property": "Servicio"
+                }
+              },
+              "queryRef": "Atenciones.Servicio",
+              "nativeQueryRef": "Servicio",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Atenciones Total"
+                }
+              },
+              "queryRef": "Medidas.Atenciones Total",
+              "nativeQueryRef": "Atenciones Total"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Atenciones Total"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b119ff683a434ec75304",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Atenciones"
+              }
+            },
+            "Property": "Servicio"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e253ccaae944cdd7030b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Atenciones Total"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

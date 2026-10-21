@@ -1,0 +1,126 @@
+/// Plantilla interna de Power BI para jerarquías automáticas de fecha. No contiene datos de negocio; sus campos de calendario se generan a partir de una fecha.
+table DateTableTemplate_e092692a-5c8a-4b00-9460-6d30ad0ce8ba
+	isHidden
+	isPrivate
+	lineageTag: bf34a56d-8eba-4000-ae10-5c06312c14bd
+
+	/// Día del calendario automático de plantilla. Es la fecha base de la que se derivan los demás campos de calendario.
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: f8238a83-d5c2-43ed-a232-83bb91071fc6
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	/// Año derivado de Date mediante YEAR([Date]); sirve para agrupar fechas por año.
+	column Año = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f3d08248-ddf9-4218-8592-5f443766e61e
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	/// Número de mes del 1 al 12, derivado de Date mediante MONTH([Date]); ordena los nombres de mes.
+	column NroMes = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e5af946d-885f-4177-8ddc-992ccb7f5182
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	/// Nombre del mes derivado con FORMAT([Date], "MMMM"); se ordena por NroMes para mantener el orden del calendario.
+	column Mes = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: a7aeb5aa-1815-4b1e-be0a-22c8bfb07110
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: NroMes
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	/// Número de trimestre, calculado como INT(([NroMes] + 2) / 3); agrupa los meses en los trimestres 1 a 4.
+	column NroTrimestre = INT(([NroMes] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e8e9ef6d-0a1e-4d02-934e-ca1671cc01fc
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	/// Etiqueta del trimestre, construida como "Trim. " más NroTrimestre; se ordena por el número de trimestre.
+	column Trimestre = "Trim. " & [NroTrimestre]
+		dataType: string
+		isHidden
+		lineageTag: bb2290e3-76dc-4d26-93af-fa4d11216298
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: NroTrimestre
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	/// Día del mes derivado de Date mediante DAY([Date]); toma valores del 1 al 31 según la fecha.
+	column Día = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 005ca1a3-a775-4855-b489-5a80e377a59e
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Jerarquía de fechas'
+		lineageTag: 23c97563-8b07-4abc-89bf-08d18f543748
+
+		level Año
+			lineageTag: 308756a3-9db6-4be6-9020-727db5bf6b8d
+			column: Año
+
+		level Trimestre
+			lineageTag: 8b8e1efe-3a9a-4816-9fc4-c7f8ba928af0
+			column: Trimestre
+
+		level Mes
+			lineageTag: 2c9a2d52-b686-46a0-a651-9a8d964c5986
+			column: Mes
+
+		level Día
+			lineageTag: 1a3e3449-94ba-41db-a7ca-55f8658eda1a
+			column: Día
+
+		annotation TemplateId = DateHierarchy
+
+	partition DateTableTemplate_e092692a-5c8a-4b00-9460-6d30ad0ce8ba = calculated
+		mode: import
+		source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+	annotation __PBI_TemplateDateTable = true
+
+	annotation DefaultItem = DateHierarchy
+

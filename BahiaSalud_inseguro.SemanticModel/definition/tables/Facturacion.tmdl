@@ -1,0 +1,81 @@
+/// Una fila por registro de facturación asociado a una atención. Incluye identificador de factura, atención, EPS pagadora, valor en pesos colombianos, fecha de factura y estado.
+table Facturacion
+	lineageTag: 8c193d03-1303-44ac-886c-3f4899aeb7eb
+
+	/// Identificador de la factura o registro de facturación.
+	column Factura_ID
+		dataType: string
+		lineageTag: 4da494e8-73c1-41a2-9a67-7970cc8e7058
+		summarizeBy: none
+		sourceColumn: Factura_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador de la atención a la que corresponde este registro de facturación.
+	column Atencion_ID
+		dataType: string
+		lineageTag: 33b9f3b9-353a-4f91-84f3-0174c62ffe12
+		summarizeBy: none
+		sourceColumn: Atencion_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Entidad promotora de salud responsable del pago de la factura.
+	column EPS_Pagadora
+		dataType: string
+		lineageTag: d284af10-9c5e-4ea6-ab95-729901b2a048
+		summarizeBy: none
+		sourceColumn: EPS_Pagadora
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Valor facturado expresado en pesos colombianos (COP). La columna está configurada para sumarse.
+	column Valor_COP
+		dataType: int64
+		formatString: 0
+		lineageTag: b83ac502-f20c-47b7-8d76-87891f49e22c
+		summarizeBy: sum
+		sourceColumn: Valor_COP
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fecha de emisión o registro de la factura; permite analizar la facturación por periodo.
+	column Fecha_Factura
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3a053c67-4a58-4f4b-bd5b-18bfcbb47d28
+		summarizeBy: none
+		sourceColumn: Fecha_Factura
+
+		variation Variación
+			isDefault
+			relationship: 4e7c8349-62da-4383-bc66-a3c97218bf84
+			defaultHierarchy: LocalDateTable_fc2014ce-5b44-49a7-9bf4-bbb910fa7612.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Estado actual registrado para la factura, según los datos de origen.
+	column Estado
+		dataType: string
+		lineageTag: c140622c-44eb-4dd4-a9e2-bad3a78636d5
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Facturacion = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Facturacion.csv"),[Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Factura_ID", type text}, {"Atencion_ID", type text}, {"EPS_Pagadora", type text}, {"Valor_COP", Int64.Type}, {"Fecha_Factura", type date}, {"Estado", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

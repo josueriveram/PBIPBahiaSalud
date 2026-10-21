@@ -1,0 +1,124 @@
+/// Calendario automático interno asociado a Atenciones[Fecha_Ingreso]. Genera días desde el 1 de enero del año mínimo hasta el 31 de diciembre del año máximo de ingreso para habilitar la jerarquía de fechas.
+table LocalDateTable_83bcf84d-a339-4132-a654-579e996360a2
+	isHidden
+	showAsVariationsOnly
+	lineageTag: 5ffab473-6a2d-4f9e-8616-a50d24792e39
+
+	/// Día del calendario automático asociado a Atenciones[Fecha_Ingreso]. La tabla cubre años completos desde el mínimo hasta el máximo de esa fecha.
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: eb8399e3-7d8a-4044-8426-32fa098ea438
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	/// Año derivado de Date mediante YEAR([Date]); permite agrupar fechas de ingreso por año.
+	column Año = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3abdce1a-d726-47b9-872b-556ff4ac9afe
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	/// Número de mes del 1 al 12, derivado de Date mediante MONTH([Date]); ordena los nombres de mes.
+	column NroMes = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6ee3446-73f2-4bad-b31e-e3554f4ed1e4
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	/// Nombre del mes derivado con FORMAT([Date], "MMMM"); se ordena por NroMes para mantener el orden del calendario.
+	column Mes = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 5a85a6a8-7f64-4322-9059-5d9311f8155b
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: NroMes
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	/// Número de trimestre, calculado como INT(([NroMes] + 2) / 3); agrupa los meses en los trimestres 1 a 4.
+	column NroTrimestre = INT(([NroMes] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d53aa6a1-0730-424a-af38-006ce40530e3
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	/// Etiqueta del trimestre, construida como "Trim. " más NroTrimestre; se ordena por el número de trimestre.
+	column Trimestre = "Trim. " & [NroTrimestre]
+		dataType: string
+		isHidden
+		lineageTag: c05407f3-8e5b-4512-be47-a0200803321e
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: NroTrimestre
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	/// Día del mes derivado de Date mediante DAY([Date]); toma valores del 1 al 31 según la fecha.
+	column Día = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 39ba3f43-7b15-4642-bbaf-a8e5289a7b8a
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Jerarquía de fechas'
+		lineageTag: 15f6ce79-96b7-494c-9555-0a47b0662322
+
+		level Año
+			lineageTag: b25484b6-e7fe-4354-8640-5670d6296a91
+			column: Año
+
+		level Trimestre
+			lineageTag: b03676ef-c020-4274-a494-d1468cffba1d
+			column: Trimestre
+
+		level Mes
+			lineageTag: 4927a328-c70d-4032-b79b-3fe5939332b4
+			column: Mes
+
+		level Día
+			lineageTag: bc3a0178-417c-4979-8319-a2c11d9b0c7a
+			column: Día
+
+		annotation TemplateId = DateHierarchy
+
+	partition LocalDateTable_83bcf84d-a339-4132-a654-579e996360a2 = calculated
+		mode: import
+		source = Calendar(Date(Year(MIN('Atenciones'[Fecha_Ingreso])), 1, 1), Date(Year(MAX('Atenciones'[Fecha_Ingreso])), 12, 31))
+
+	annotation __PBI_LocalDateTable = true
+

@@ -1,0 +1,40 @@
+/// Tabla contenedora de medidas DAX del modelo. Centraliza cálculos de atenciones, pacientes atendidos, facturación y estancia promedio; no representa una entidad con filas de negocio.
+table Medidas
+	lineageTag: 84dc64fe-b74f-4c7b-bcdc-f9b4bb4a3fba
+
+	/// Cuenta las filas de Atenciones con COUNTROWS(Atenciones). El resultado es el número de registros de atención en el contexto de filtros actual.
+	measure 'Atenciones Total' = COUNTROWS ( Atenciones )
+		formatString: 0
+		lineageTag: e74779fa-2578-461f-ab88-1509af3b9856
+
+	/// Cuenta los valores distintos de Atenciones[Paciente_ID] con DISTINCTCOUNT. Muestra cuántos pacientes únicos tienen atenciones en el contexto de filtros actual.
+	measure 'Pacientes Atendidos' = DISTINCTCOUNT ( Atenciones[Paciente_ID] )
+		formatString: 0
+		lineageTag: 0686a5f1-500d-4aec-9379-3f4789c45335
+
+	/// Suma Facturacion[Valor_COP] con SUM. Muestra el valor total facturado en pesos colombianos según los filtros aplicados.
+	measure 'Facturado COP' = SUM ( Facturacion[Valor_COP] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 503cb58f-3291-4bb5-a7f6-cdee6ac0dccd
+
+	/// Para cada fila de Atenciones calcula los días entre Fecha_Ingreso y Fecha_Egreso con DATEDIFF y luego promedia esas duraciones con AVERAGEX. El resultado es la estancia promedio en días bajo los filtros actuales.
+	measure 'Estancia Promedio (días)' = ```
+			
+			    AVERAGEX ( Atenciones, DATEDIFF ( Atenciones[Fecha_Ingreso], Atenciones[Fecha_Egreso], DAY ) )
+			
+			```
+		formatString: 0.00
+		lineageTag: fc038c44-c10a-49f1-ab8f-d6a8508a1433
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

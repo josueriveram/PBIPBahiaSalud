@@ -1,0 +1,31 @@
+model Model
+	culture: es-CO
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CO
+	valueFilterBehavior: independent
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Pacientes","Atenciones","Facturacion","Sedes","Usuarios_Roles","Medidas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Pacientes
+ref table DateTableTemplate_e092692a-5c8a-4b00-9460-6d30ad0ce8ba
+ref table LocalDateTable_d9848719-4019-4496-951e-d39981f32a5f
+ref table Atenciones
+ref table LocalDateTable_83bcf84d-a339-4132-a654-579e996360a2
+ref table LocalDateTable_b003c781-ec1e-42ad-838a-96d42f50b014
+ref table Facturacion
+ref table LocalDateTable_fc2014ce-5b44-49a7-9bf4-bbb910fa7612
+ref table Sedes
+ref table Usuarios_Roles
+ref table LocalDateTable_1958f4e4-56ac-4987-9e5c-373ea99da48c
+ref table Medidas
+
+ref cultureInfo es-CO
+

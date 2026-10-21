@@ -1,0 +1,140 @@
+/// Una fila por paciente. Reúne identificadores y datos demográficos y de contacto, además del municipio y la EPS de afiliación. Se relaciona con Atenciones mediante Paciente_ID.
+table Pacientes
+	lineageTag: 21d78922-3e64-409b-b552-7170bee420cc
+
+	/// Identificador único del paciente. Se utiliza para vincular sus datos con las atenciones registradas.
+	column Paciente_ID
+		dataType: string
+		lineageTag: 98896d5c-a8ad-4487-b321-69634f8fc835
+		summarizeBy: none
+		sourceColumn: Paciente_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tipo de documento de identidad registrado para el paciente, por ejemplo, cédula u otro documento.
+	column Tipo_Doc
+		dataType: string
+		lineageTag: 9a757a7b-768d-43b3-bbec-abdd7979627f
+		summarizeBy: none
+		sourceColumn: Tipo_Doc
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número de cédula del paciente. Campo de identificación personal oculto en el modelo.
+	column Cedula
+		dataType: string
+		isHidden
+		lineageTag: 3a864d75-4591-4009-be8a-fc58b58154c1
+		summarizeBy: none
+		sourceColumn: Cedula
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nombres de pila del paciente. Campo personal oculto en el modelo.
+	column Nombres
+		dataType: string
+		isHidden
+		lineageTag: b21bf6c5-afbd-46f7-b43c-59e2c80d28d7
+		summarizeBy: none
+		sourceColumn: Nombres
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Apellidos del paciente. Campo personal oculto en el modelo.
+	column Apellidos
+		dataType: string
+		isHidden
+		lineageTag: 3c138138-f781-47c5-8271-b086b5f353ea
+		summarizeBy: none
+		sourceColumn: Apellidos
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fecha de nacimiento del paciente. Permite analizar la población por edad o periodos de nacimiento.
+	column Fecha_Nacimiento
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 810a8c22-159a-4c11-b69f-11e71d94e4c9
+		summarizeBy: none
+		sourceColumn: Fecha_Nacimiento
+
+		variation Variación
+			isDefault
+			relationship: e069e7c4-ca42-4ff1-a7d3-989b9ba4eeb6
+			defaultHierarchy: LocalDateTable_d9848719-4019-4496-951e-d39981f32a5f.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Sexo registrado para el paciente, según la información de origen.
+	column Sexo
+		dataType: string
+		lineageTag: bdd51df2-d9f2-4a38-b9c9-0f6fb2cf195d
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número telefónico de contacto del paciente. Campo personal oculto en el modelo.
+	column Telefono
+		dataType: string
+		isHidden
+		lineageTag: 5863406f-dc36-449a-9014-2669256d1631
+		summarizeBy: none
+		sourceColumn: Telefono
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Correo electrónico de contacto del paciente. Campo personal oculto en el modelo.
+	column Correo
+		dataType: string
+		isHidden
+		lineageTag: 15bc612d-738f-4498-8155-92d3d9cd5815
+		summarizeBy: none
+		sourceColumn: Correo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Municipio de residencia registrado para el paciente.
+	column Municipio
+		dataType: string
+		lineageTag: f4419c29-58e8-428b-a2f4-733248404a69
+		summarizeBy: none
+		sourceColumn: Municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Entidad promotora de salud a la que está afiliado el paciente.
+	column EPS
+		dataType: string
+		lineageTag: a11321a0-40c4-4cc2-841b-b9ec7e52e903
+		summarizeBy: none
+		sourceColumn: EPS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Pacientes = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Pacientes.csv"),[Delimiter=";", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Paciente_ID", type text}, {"Tipo_Doc", type text}, {"Cedula", type text}, {"Nombres", type text}, {"Apellidos", type text}, {"Fecha_Nacimiento", type date}, {"Sexo", type text}, {"Telefono", type text}, {"Correo", type text}, {"Municipio", type text}, {"EPS", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

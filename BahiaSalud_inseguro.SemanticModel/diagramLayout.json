@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Pacientes",
+          "nodeLineageTag": "21d78922-3e64-409b-b552-7170bee420cc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 339,
+            "y": 0
+          },
+          "nodeIndex": "Atenciones",
+          "nodeLineageTag": "dc655d0a-1f19-4049-947c-9958a46b17b5",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 749.25,
+            "y": 0
+          },
+          "nodeIndex": "Facturacion",
+          "nodeLineageTag": "8c193d03-1303-44ac-886c-3f4899aeb7eb",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 820,
+            "y": 293
+          },
+          "nodeIndex": "Sedes",
+          "nodeLineageTag": "79f75e75-e831-4208-abf4-6404fc216bcd",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 0
+          },
+          "nodeIndex": "Usuarios_Roles",
+          "nodeLineageTag": "a27b5cfb-dddb-4fb8-852a-ee080177da32",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 182.5
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "84dc64fe-b74f-4c7b-bcdc-f9b4bb4a3fba",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 80,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

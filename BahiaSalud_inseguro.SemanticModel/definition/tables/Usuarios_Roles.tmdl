@@ -1,0 +1,117 @@
+/// Una fila por usuario y su información organizacional y de acceso: nombre, correo, cargo, área, sede, rol de trabajo, estado, fecha de retiro y acceso a Power BI.
+table Usuarios_Roles
+	lineageTag: a27b5cfb-dddb-4fb8-852a-ee080177da32
+
+	/// Identificador del usuario registrado en la tabla de usuarios y roles.
+	column Usuario_ID
+		dataType: string
+		lineageTag: 7810b92b-5667-4295-9aea-a9db3e7a743d
+		summarizeBy: none
+		sourceColumn: Usuario_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nombre de la persona asociada al usuario.
+	column Nombre
+		dataType: string
+		lineageTag: 67d5c7f3-0d42-4518-9316-d4821d4b7527
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dirección de correo electrónico asociada al usuario.
+	column Correo
+		dataType: string
+		lineageTag: 9b582cc3-f884-4431-ac54-943171facd53
+		summarizeBy: none
+		sourceColumn: Correo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cargo o puesto de la persona en la organización.
+	column Cargo
+		dataType: string
+		lineageTag: 1fb8658f-57d1-4d45-8fee-3df224308ee5
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Área organizacional asociada al usuario.
+	column Area
+		dataType: string
+		lineageTag: c13a9127-05b9-4dd8-9a7e-4bf1c767ee79
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador de la sede vinculada al usuario; permite asociarlo con Sedes[Sede_ID].
+	column Sede_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: d524b2b3-7d3a-40df-8e58-d25507b88d17
+		summarizeBy: none
+		sourceColumn: Sede_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Rol asignado al usuario dentro del área de trabajo.
+	column Rol_Area_Trabajo
+		dataType: string
+		lineageTag: 009c100c-70a1-4b39-8b2d-124c4eb39ea4
+		summarizeBy: none
+		sourceColumn: Rol_Area_Trabajo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Estado laboral o de registro del usuario, tal como aparece en los datos de origen.
+	column Estado
+		dataType: string
+		lineageTag: c763c549-35a1-4cf7-8a30-f2ac88837673
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fecha de retiro del usuario, si está registrada; permite analizar retiros por periodo.
+	column Fecha_Retiro
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 45c433d7-8e82-4b16-8793-e93036c6f752
+		summarizeBy: none
+		sourceColumn: Fecha_Retiro
+
+		variation Variación
+			isDefault
+			relationship: 2c463258-0dc7-4427-974a-f383f6a7f1c2
+			defaultHierarchy: LocalDateTable_1958f4e4-56ac-4987-9e5c-373ea99da48c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Valor de origen que indica o describe el acceso del usuario a Power BI.
+	column Acceso_PowerBI
+		dataType: string
+		lineageTag: 1c5a42bd-b470-4181-9721-1fd2d9bf4295
+		summarizeBy: none
+		sourceColumn: Acceso_PowerBI
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Usuarios_Roles = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Usuarios_Roles.csv"),[Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Usuario_ID", type text}, {"Nombre", type text}, {"Correo", type text}, {"Cargo", type text}, {"Area", type text}, {"Sede_ID", Int64.Type}, {"Rol_Area_Trabajo", type text}, {"Estado", type text}, {"Fecha_Retiro", type date}, {"Acceso_PowerBI", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

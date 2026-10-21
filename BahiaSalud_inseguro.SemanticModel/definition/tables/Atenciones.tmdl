@@ -1,0 +1,123 @@
+/// Una fila por atención de salud. Contiene paciente, sede, fechas de ingreso y egreso, servicio, diagnóstico CIE-10 y médico. Paciente_ID y Sede_ID permiten relacionarla con Pacientes y Sedes.
+table Atenciones
+	lineageTag: dc655d0a-1f19-4049-947c-9958a46b17b5
+
+	/// Identificador único de la atención de salud; permite distinguir cada registro de atención.
+	column Atencion_ID
+		dataType: string
+		lineageTag: 2170d294-5918-44a7-92e9-6431c2031816
+		summarizeBy: none
+		sourceColumn: Atencion_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador del paciente atendido. Se relaciona con Pacientes[Paciente_ID].
+	column Paciente_ID
+		dataType: string
+		lineageTag: 3bc3650a-44a6-412a-a5e8-9c253af0dcba
+		summarizeBy: none
+		sourceColumn: Paciente_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador de la sede donde ocurrió la atención. Se relaciona con Sedes[Sede_ID].
+	column Sede_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b86372d-9fc3-4a3e-9810-9430e9cc487e
+		summarizeBy: none
+		sourceColumn: Sede_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fecha en que comienza la atención o estancia; se usa para análisis por fecha de ingreso.
+	column Fecha_Ingreso
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eda3a32a-b3b4-4879-9314-215cf816b024
+		summarizeBy: none
+		sourceColumn: Fecha_Ingreso
+
+		variation Variación
+			isDefault
+			relationship: 4c5bba3b-5c3f-473c-9d88-40c251ad63fa
+			defaultHierarchy: LocalDateTable_83bcf84d-a339-4132-a654-579e996360a2.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Fecha en que termina la atención o estancia; se usa junto con Fecha_Ingreso para calcular su duración.
+	column Fecha_Egreso
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4d056d54-07e8-440b-8166-bb5a8b8ae443
+		summarizeBy: none
+		sourceColumn: Fecha_Egreso
+
+		variation Variación
+			isDefault
+			relationship: ee325987-9d2d-44e3-8ae4-7763e78307b9
+			defaultHierarchy: LocalDateTable_b003c781-ec1e-42ad-838a-96d42f50b014.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Servicio asistencial en el que se prestó la atención.
+	column Servicio
+		dataType: string
+		lineageTag: d7baa2c9-b2c4-433e-b21c-aff1cfd81b96
+		summarizeBy: none
+		sourceColumn: Servicio
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código del diagnóstico registrado según la clasificación CIE-10.
+	column Diagnostico_CIE10
+		dataType: string
+		lineageTag: 14722ec7-c41a-430f-932e-522ea002aeca
+		summarizeBy: none
+		sourceColumn: Diagnostico_CIE10
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descripción en texto del diagnóstico asociado a la atención.
+	column Descripcion_Dx
+		dataType: string
+		lineageTag: 7f9d9e63-504a-4a79-aa6a-d0bfeb2de27f
+		summarizeBy: none
+		sourceColumn: Descripcion_Dx
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nombre del médico asociado a la atención.
+	column Medico
+		dataType: string
+		lineageTag: c4071947-38e4-4627-8bf3-96979ff0f718
+		summarizeBy: none
+		sourceColumn: Medico
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Fecha_Ingreso Jerarquía'
+		lineageTag: dd9f4354-fa66-45ee-b826-039ebd878ff5
+
+		level Fecha_Ingreso
+			lineageTag: 2822f9ff-9ce2-4eab-b2ff-6b93aa24aa3f
+			column: Fecha_Ingreso
+
+	partition Atenciones = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("H:\My Drive\BI\SEGURIDAD Y GOBERNANZA DE DATOS\Sesion_1\Dataset_BahiaSalud\Atenciones.csv"),[Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Atencion_ID", type text}, {"Paciente_ID", type text}, {"Sede_ID", Int64.Type}, {"Fecha_Ingreso", type date}, {"Fecha_Egreso", type date}, {"Servicio", type text}, {"Diagnostico_CIE10", type text}, {"Descripcion_Dx", type text}, {"Medico", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "BahiaSalud_inseguro"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c8c01ec0-abb7-4ab4-83e3-665a92b3da58"
+  }
+}

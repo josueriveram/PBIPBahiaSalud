@@ -1,0 +1,279 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "8f22f6bb6dd0a8270639",
+  "position": {
+    "x": 253.33333333333334,
+    "y": 498.33333333333337,
+    "z": 5002,
+    "height": 328.33333333333337,
+    "width": 875,
+    "tabOrder": 5002
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Atenciones"
+                    }
+                  },
+                  "Property": "Atencion_ID"
+                }
+              },
+              "queryRef": "Atenciones.Atencion_ID",
+              "nativeQueryRef": "Atencion_ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Atenciones"
+                    }
+                  },
+                  "Property": "Paciente_ID"
+                }
+              },
+              "queryRef": "Atenciones.Paciente_ID",
+              "nativeQueryRef": "Paciente_ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sedes"
+                    }
+                  },
+                  "Property": "Sede"
+                }
+              },
+              "queryRef": "Sedes.Sede",
+              "nativeQueryRef": "Sede"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Atenciones"
+                    }
+                  },
+                  "Property": "Servicio"
+                }
+              },
+              "queryRef": "Atenciones.Servicio",
+              "nativeQueryRef": "Servicio"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Atenciones"
+                        }
+                      },
+                      "Hierarchy": "Fecha_Ingreso Jerarquía"
+                    }
+                  },
+                  "Level": "Fecha_Ingreso"
+                }
+              },
+              "queryRef": "Atenciones.Fecha_Ingreso Jerarquía.Fecha_Ingreso",
+              "nativeQueryRef": "Fecha_Ingreso Jerarquía Fecha_Ingreso"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Facturado COP"
+                }
+              },
+              "queryRef": "Medidas.Facturado COP",
+              "nativeQueryRef": "Facturado COP"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "HierarchyLevel": {
+                "Expression": {
+                  "Hierarchy": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Atenciones"
+                      }
+                    },
+                    "Hierarchy": "Fecha_Ingreso Jerarquía"
+                  }
+                },
+                "Level": "Fecha_Ingreso"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "153.80099815525244D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Atenciones.Servicio"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "140.56387379941015D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sedes.Sede"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "101.99633110782736D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Atenciones.Paciente_ID"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.38739025464372D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Atenciones.Atencion_ID"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4c7e331b761cb56a7082",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Atenciones"
+              }
+            },
+            "Property": "Atencion_ID"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "54659b9b9373dcd9eb30",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Atenciones"
+              }
+            },
+            "Property": "Paciente_ID"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2b61da718582b1713bd5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Sedes"
+              }
+            },
+            "Property": "Sede"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9abddbf712758adc8398",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Atenciones"
+              }
+            },
+            "Property": "Servicio"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3c385e2eb6183686066c",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Atenciones"
+                  }
+                },
+                "Hierarchy": "Fecha_Ingreso Jerarquía"
+              }
+            },
+            "Level": "Fecha_Ingreso"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
